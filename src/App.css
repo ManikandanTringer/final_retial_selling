@@ -1,0 +1,93 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  
+}
+
+.App {
+  text-align: center;
+}
+.dialog-action{
+  /* margin: 10px; */
+}
+#store1,#store2,#store3{
+  margin: 50px;
+  
+
+}
+.fields{
+ 
+  margin: 10px;
+  
+}
+.product-form{
+  /* border: 1px solid black; */
+  width: 50vh;
+  padding: 10px;
+}
+.entry{
+ 
+}
+/* .store1,.store2,.store3{
+  display: flex;
+  align-items: center;
+  justify-items: center;
+ 
+  margin: 20px;
+  margin-bottom: 20px;
+  border: 1px solid black ;
+  border-radius: 5px;
+  width: fit-content;
+
+} */
+.store1{
+  /* display: flex;
+  align-items: center;
+  justify-items: center;
+  */
+  margin: 20px;
+  margin-bottom: 20px;
+  border: 1px solid black ;
+  border-radius: 5px;
+  width: fit-content;
+
+}
+.store2{
+  /* display: flex;
+  align-items: center;
+  justify-items: center; */
+ 
+  margin: 20px;
+  margin-bottom: 20px;
+  border: 1px solid black ;
+  border-radius: 5px;
+  width: fit-content;
+
+}
+.store3{
+  /* display: flex;
+  align-items: center;
+  justify-items: center;
+  */
+  margin: 20px;
+  margin-bottom: 20px;
+  border: 1px solid black ;
+  border-radius: 5px;
+  width: fit-content;
+
+}
+
+
+.store{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+ 
+}
+.MuiTableRow-root.MuiTableRow-head.css-1q1u3t4-MuiTableRow-root{
+  background-color: blue ;
+  color: #ffff;
+}
+.MuiTable-root.css-rqglhn-MuiTable-root{
+
+}
