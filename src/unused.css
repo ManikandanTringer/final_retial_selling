@@ -1,0 +1,61 @@
+
+  .store1{
+    /* display: flex;
+    align-items: center;
+    justify-items: center;
+    */
+    margin: 20px;
+    margin-bottom: 20px;
+    border: 1px solid black ;
+    border-radius: 5px;
+    width: fit-content;
+  
+  }
+  .store2{
+    /* display: flex;
+    align-items: center;
+    justify-items: center; */
+   
+    margin: 20px;
+    margin-bottom: 20px;
+    border: 1px solid black ;
+    border-radius: 5px;
+    width: fit-content;
+  
+  }
+  .store3{
+    /* display: flex;
+    align-items: center;
+    justify-items: center;
+    */
+    margin: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgb(226, 186, 186) ;
+    border-radius: 5px;
+    width: fit-content;
+  
+  }
+
+
+
+
+  <Typography
+  sx={{ flex: '1 1 100%' }}
+  variant="h6"
+  id="tableTitle"
+  component="div"
+>
+  Nutrition
+</Typography>
+
+
+
+{emptyRows > 0 && (
+    <TableRow
+      style={{
+        height: (dense ? 33 : 53) * emptyRows,
+      }}
+    >
+      <TableCell colSpan={6} />
+    </TableRow>
+  )}

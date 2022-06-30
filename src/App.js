@@ -14,7 +14,9 @@ function App() {
   // }
   return (
     <div className="App">
-       
+       <header>
+        <h1 className='app-title'> Retail Selling</h1>
+       </header>
         {/* <button onClick={()=>console.log('added')}>Add</button> */}
         <Shops />
         <ProductList />

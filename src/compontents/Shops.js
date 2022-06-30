@@ -22,11 +22,11 @@ let productDetails = productDetail;
 
  const Shops = () => {
 
-  const store1item=useSelector((state)=>state.retail.store1Items)
-    const store2item=useSelector((state)=>state.retail.store2Items)
-    const store3item=useSelector((state)=>state.retail.store3Items)
-    console.log("arrayOfObjects",store1item[0][1])
-    const [newItem,setNewItem]=useState({name:'',price:'',quantity:'0 '})
+  // const store1item=useSelector((state)=>state.retail.store1Items)
+  //   const store2item=useSelector((state)=>state.retail.store2Items)
+  //   const store3item=useSelector((state)=>state.retail.store3Items)
+  //   console.log("arrayOfObjects",store1item[0][1])
+    const [newItem,setNewItem]=useState({name:'',price:'',quantity:'0 ',total:0})
     const [open, setOpen] = React.useState(false);
     const [selectedName1,setSelectedName1]=useState([])
     const [selectedName2,setSelectedName2]=useState([])
@@ -40,14 +40,14 @@ let productDetails = productDetail;
       setOpen(true); 
       setCurrentStore(e.target.id)  
       // let t=e.target.id
-      dispatch(generateBill.updateCurrentStore({currentstore:e.target.id}))
+      // dispatch(generateBill.updateCurrentStore({currentstore:e.target.id}))
         
     }
     const handleClose = () => {
       setOpen(false);
-      console.log(cr.productItems)
+      // console.log(cr.productItems)
       productDetails.productItems = cr.productItems;
-     
+      setNewItem({name:null,price:null,quantity:'0',total:0})
       // console.log(newItem)
     };
    
@@ -87,7 +87,7 @@ let productDetails = productDetail;
     // console.log(newItem)
     setNewItem(prevState => ({
       ...prevState,
-      price: getprice[0].price
+      price: getprice[0].price,
   }));
   //console.log("handle",currentStore)
   if(currentStore=="store1")
@@ -130,7 +130,9 @@ const handleAdd=()=>{
     productDetails.productItems = productDetails.productItems.filter((item,index) => item.name != newItem.name)
 
     setNewItem({name:null,price:null,quantity:'0'})
-  
+    dispatch(generateBill.addItems({
+      currentStore,
+      }),)
 }
     
   
@@ -140,7 +142,7 @@ const handleAdd=()=>{
         <Button id="store2" variant="outlined" onClick={handleClickOpen}> store 2 </Button>
         <Button id="store3" variant="outlined" onClick={handleClickOpen}> store 3 </Button>
         <Dialog  open={open} onClose={handleClose}>
-          <DialogTitle className="product-form">Bill</DialogTitle>
+          <DialogTitle className="product-form">Generate Bill</DialogTitle>
           <DialogContent className="product-form">
             <DialogContentText>
                 
@@ -148,8 +150,8 @@ const handleAdd=()=>{
               <Autocomplete
               id="free-solo-demo"
               className='fields'
-              //freeSolo
-              // fullWidth
+              freeSolo
+               // fullWidth
               name="name"
               defaultValue='Select Product'
               options={productDetails.productItems.map((option) => option.name)}
@@ -180,7 +182,7 @@ const handleAdd=()=>{
               }
               // multiple
               filterSelectedOptions
-              renderInput={(params) => <TextField {...params} label="name" />}
+              renderInput={(params) => <TextField className='textfield' {...params} label="name" />}
               onChange={(event, value) => {handleName(value)}}
             />
            {/* {selectPrice(newItem.name)} */}
@@ -199,10 +201,11 @@ const handleAdd=()=>{
             
            <TextField
               autoFocus
+              className='textfield'
               margin="dense"
               id="price"
               disabled
-              className='fields'
+              
               name="price"
               label='price'
               type="number"
@@ -222,9 +225,15 @@ const handleAdd=()=>{
               type="number"
               label="quantiny"
               fullWidth
+              InputProps={{
+                inputProps: { min: 0 }
+              }}
               onChange={(event,value)=>{
                 console.log(event.target.value)
+                // {(value < 0)  ? (value = 0): value;}
                 setNewItem(prevState=>({...prevState,quantity: event.target.value}))
+                // newItem.map(item=>{item.total+=item.price*item.quantity})
+                // console.log(newItem.total)
               }}
               value={newItem.quantity}
               variant="outlined"

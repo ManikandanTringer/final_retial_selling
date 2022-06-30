@@ -1,11 +1,14 @@
-import { Table, TableBody, TableCell, TableRow,TableHead } from '@mui/material'
+import { Table, TableBody, TableCell, tableCellClasses, TableRow,TableHead, TableContainer, Paper, Typography } from '@mui/material'
 import React from 'react'
 import "../App.css"
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import { generateBill } from '../store';
+import { styled } from '@mui/material/styles';
 
-let lastId=0;
+
+
+// let lastId=0;
 
 const ProductList = () => {
     const dispatch=useDispatch()
@@ -29,33 +32,54 @@ dispatch(generateBill.removeItems({name,type:"store3"}))
 // console.log("Displaying ID",store1.id)
 }
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+  
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
   return (
       
     <div className='store'>
         <div className='store1'>
-        <Table>
+            <h2>Store 1</h2>
+            <TableContainer component={Paper}>
+        <Table  sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
             <TableHead >
-            <TableRow>
+            <StyledTableRow>
     
-            <TableCell>Name</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Quantity</TableCell>
-            <TableCell>Amount</TableCell>
-            <TableCell>Delete</TableCell>
-            </TableRow>
+            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell align="right" >Price</StyledTableCell>
+            <StyledTableCell align="right" >Quantity</StyledTableCell>
+            <StyledTableCell align="right" >Amount</StyledTableCell>
+            <StyledTableCell align="right" >Delete</StyledTableCell>
+            </StyledTableRow>
             </TableHead>
             <TableBody>
                 {
                     store1.map((item)=>(
                         <>
-                        <TableRow>
+                        <StyledTableRow   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                             
-                            <TableCell>{item.name}</TableCell>
-                            <TableCell>{item.price}</TableCell>
-                            <TableCell>{item.quantity}</TableCell>
-                            <TableCell>{item.amount}</TableCell>
-                            <TableCell><DeleteForeverRoundedIcon style={{ color: "red" }} onClick={()=>handleDelete1(item.name)}/></TableCell>
-                        </TableRow> 
+                            <StyledTableCell component="th" scope="row">{item.name}</StyledTableCell>
+                            <StyledTableCell align="right" >{item.price}</StyledTableCell>
+                            <StyledTableCell align="right" >{item.quantity}</StyledTableCell>
+                            <StyledTableCell align="right" >{item.amount}</StyledTableCell>
+                            <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }} onClick={()=>handleDelete1(item.name)}/></StyledTableCell>
+                        </StyledTableRow> 
                         {/* <span className='totalamount'></span> */
                         
                         }
@@ -63,63 +87,76 @@ dispatch(generateBill.removeItems({name,type:"store3"}))
                     ))
                 }
             </TableBody>
+
         </Table>
+        <Typography>Total : {useSelector((state)=>state.retail.store1Total)}</Typography>
+        </TableContainer>
         </div>
         <div  className='store2'>
-        <Table>
+        <h2>Store 2</h2>
+        <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
             <TableHead>
-            <TableRow>
+            <StyledTableRow>
             
-            <TableCell>Name</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Quantity</TableCell>
-            <TableCell>Amount</TableCell>
-            <TableCell>Delete</TableCell>
-            </TableRow>
+            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell align="right" >Price</StyledTableCell>
+            <StyledTableCell align="right" >Quantity</StyledTableCell>
+            <StyledTableCell align="right" >Amount</StyledTableCell>
+            <StyledTableCell align="right" >Delete</StyledTableCell>
+            </StyledTableRow>
             </TableHead>
             <TableBody>
                 {
                     store2.map((item)=>(
-                       <> <TableRow>
+                       <> <StyledTableRow  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                            
-                            <TableCell>{item.name}</TableCell>
-                            <TableCell>{item.price}</TableCell>
-                            <TableCell>{item.quantity}</TableCell>
-                            <TableCell>{item.amount}</TableCell>
-                            <TableCell><DeleteForeverRoundedIcon style={{ color: "red" }}  onClick={()=>handleDelete2(item.name)}/></TableCell>
-                        </TableRow> 
+                            <StyledTableCell  >{item.name}</StyledTableCell>
+                            <StyledTableCell align="right" >{item.price}</StyledTableCell>
+                            <StyledTableCell align="right" >{item.quantity}</StyledTableCell>
+                            <StyledTableCell align="right" >{item.amount}</StyledTableCell>
+                            <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }}  onClick={()=>handleDelete2(item.name)}/></StyledTableCell>
+                        </StyledTableRow> 
                        
                         </>
                     ))
                     }
                      {/* <span className='totalamount'></span> */}
+                    
             </TableBody>
+            
         </Table>
+        {/* {store2.map(item=>{store2.amount}) && <Typography>Total</Typography>} */}
+
+        <Typography>Total : {useSelector((state)=>state.retail.store2Total)}</Typography>
+        </TableContainer>
         </div>
         <div className='store3'>
-        <Table>
+        <h2>Store 3</h2>
+        <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
             <TableHead>
-            <TableRow>
+            <StyledTableRow>
             {/* <TableCell>product Id</TableCell> */}
-            <TableCell>Name</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Quantity</TableCell>
-            <TableCell>Amount</TableCell>
-            <TableCell>Delete</TableCell>
-            </TableRow>
+            <StyledTableCell >Name</StyledTableCell>
+            <StyledTableCell align="right" >Price</StyledTableCell>
+            <StyledTableCell align="right" >Quantity</StyledTableCell>
+            <StyledTableCell align="right" >Amount</StyledTableCell>
+            <StyledTableCell align="right" >Delete</StyledTableCell>
+            </StyledTableRow>
             </TableHead>
             <TableBody>
                 {
                     store3.map((item)=>(
                         <>
-                        <TableRow>
+                        <StyledTableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                             {/* <TableCell>{++lastId}</TableCell> */}
-                            <TableCell>{item.name}</TableCell>
-                            <TableCell>{item.price}</TableCell>
-                            <TableCell>{item.quantity}</TableCell>
-                            <TableCell>{item.amount}</TableCell>
-                            <TableCell><DeleteForeverRoundedIcon style={{ color: "red" }}  onClick={()=>handleDelete3(item.name)}/></TableCell>
-                        </TableRow> 
+                            <StyledTableCell component="th" scope="row" >{item.name}</StyledTableCell>
+                            <StyledTableCell align="right" >{item.price}</StyledTableCell>
+                            <StyledTableCell align="right" >{item.quantity}</StyledTableCell>
+                            <StyledTableCell align="right" >{item.amount}</StyledTableCell>
+                            <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }}  onClick={()=>handleDelete3(item.name)}/></StyledTableCell>
+                        </StyledTableRow> 
                       
                         </>
                     ))
@@ -127,7 +164,10 @@ dispatch(generateBill.removeItems({name,type:"store3"}))
                    
             </TableBody>
             {/* {1 ?   <span className='totalamount'>Total:{store3}</span> : ''} */}
+         
         </Table>    
+        <Typography  align="center" >Total : {useSelector((state)=>state.retail.store3Total)}</Typography> 
+       </TableContainer>
         </div>
     </div>
   )
