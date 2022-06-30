@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/final_retial_selling/static/css/main.e351d6f0.css",
+    "main.js": "/final_retial_selling/static/js/main.77805243.js",
+    "static/js/787.140eb3c5.chunk.js": "/final_retial_selling/static/js/787.140eb3c5.chunk.js",
+    "index.html": "/final_retial_selling/index.html",
+    "main.e351d6f0.css.map": "/final_retial_selling/static/css/main.e351d6f0.css.map",
+    "main.77805243.js.map": "/final_retial_selling/static/js/main.77805243.js.map",
+    "787.140eb3c5.chunk.js.map": "/final_retial_selling/static/js/787.140eb3c5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e351d6f0.css",
+    "static/js/main.77805243.js"
+  ]
+}
