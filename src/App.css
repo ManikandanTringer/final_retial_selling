@@ -6,8 +6,18 @@
 
 .App {
   text-align: center;
-  background-color: azure;
-  height: 100vh;;
+  /* background-color: Created with https://www.css-gradient.com */
+  /* background: #38C5CA;
+  background: -webkit-linear-gradient(top left, #38C5CA, #817BE0);
+  background: -moz-linear-gradient(top left, #38C5CA, #817BE0);
+  background: linear-gradient(to bottom right, #38C5CA, #817BE0);;
+  Created with https://www.css-gradient.com */
+/* Created with https://www.css-gradient.com */
+background: rgba(152, 120, 249, 1.0);
+background: -webkit-linear-gradient(top left, rgba(152, 120, 249, 1.0), rgba(173, 232, 255, 1.0));
+background: -moz-linear-gradient(top left, rgba(152, 120, 249, 1.0), rgba(173, 232, 255, 1.0));
+background: linear-gradient(to bottom right, rgba(152, 120, 249, 1.0), rgba(173, 232, 255, 1.0));
+  height: 100vh;
 }
 .dialog-action{
   /* margin: 10px; */
@@ -26,13 +36,14 @@
   /* border: 1px solid black; */
   width: 50vh;
   padding: 10px;
-  color: blue;
+  color: rgb(5, 105, 245 );
 }
 .entry{
  
 }
   .store1,.store2,.store3{
       margin:20px;
+      /* background-color: rgb(166, 144, 234); */
 
   } 
 
@@ -43,13 +54,20 @@
   justify-content: center;
  
 } 
+.dialog-action:hover{
+  background-color: rgb(54, 37, 204);
+  color: rgb(25, 99, 237);
+  font-weight: bold;
+}
 .textfield {
   /* background-color: #000; */
   color: green;
 }
 
 .app-title{
-  background-color: grey;
-  color: white;
+  background-color: rgb(119, 142, 248);
+  /* box-shadow: 5px 10px 8px 10px #8c9fd4;  */
+  box-shadow: 1px 1px 8px 4px #8c9fd4;
+    color: white;
   padding: 10px;
 }

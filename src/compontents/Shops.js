@@ -22,15 +22,15 @@ let productDetails = productDetail;
 
  const Shops = () => {
 
-  // const store1item=useSelector((state)=>state.retail.store1Items)
-  //   const store2item=useSelector((state)=>state.retail.store2Items)
-  //   const store3item=useSelector((state)=>state.retail.store3Items)
-  //   console.log("arrayOfObjects",store1item[0][1])
-    const [newItem,setNewItem]=useState({name:'',price:'',quantity:'0 ',total:0})
+  const store1item=useSelector((state)=>state.retail.store1Items)
+    const store2item=useSelector((state)=>state.retail.store2Items)
+    const store3item=useSelector((state)=>state.retail.store3Items)
+    // console.log(store1item[1].name)
+    const [newItem,setNewItem]=useState({name:'',price:'',quantity:null,total:0})
     const [open, setOpen] = React.useState(false);
-    const [selectedName1,setSelectedName1]=useState([])
-    const [selectedName2,setSelectedName2]=useState([])
-    const [selectedName3,setSelectedName3]=useState([])
+    // const [selectedName1,setSelectedName1]=useState([])
+    // const [selectedName2,setSelectedName2]=useState([])
+    // const [selectedName3,setSelectedName3]=useState([])
     const [selectedPrice,setSelectedPrice]=useState('')
     const [currentStore,setCurrentStore]=useState('')
     // let productDetails1 = productDetails;
@@ -46,8 +46,8 @@ let productDetails = productDetail;
     const handleClose = () => {
       setOpen(false);
       // console.log(cr.productItems)
-      productDetails.productItems = cr.productItems;
-      setNewItem({name:null,price:null,quantity:'0',total:0})
+      // productDetails.productItems = cr.productItems;
+      setNewItem({name:null,price:null,quantity:null,total:0})
       // console.log(newItem)
     };
    
@@ -77,28 +77,30 @@ let productDetails = productDetail;
     // console.log(value)
     // const { name, value } = e.target;
     setNewItem(prevState => ({
-        ...prevState,
+        ...prevState, 
         name: value
     }));
 
-    let getprice=productDetails.productItems.filter((data)=>(data.name == value))
+    let getprice=store1item.filter((data)=>(data.name == value))
     
     setSelectedPrice(getprice[0].price)
-    // console.log(newItem)
+    // console.log("guadfgu",store1item)
+  
     setNewItem(prevState => ({
       ...prevState,
       price: getprice[0].price,
   }));
+ 
   //console.log("handle",currentStore)
-  if(currentStore=="store1")
-    setSelectedName1([...selectedName1,value])
-  else if(currentStore=="store2")
-    setSelectedName2([...selectedName2,value])
-  else if(currentStore=="store3")
-    setSelectedName3([...selectedName3,value])
-  console.log(selectedName1)
-  console.log(selectedName2)
-  console.log(selectedName3)
+  // if(currentStore=="store1")
+  //   setSelectedName1([...selectedName1,value])
+  // else if(currentStore=="store2")
+  //   setSelectedName2([...selectedName2,value])
+  // else if(currentStore=="store3")
+  //   setSelectedName3([...selectedName3,value])
+  // console.log(selectedName1)
+  // console.log(selectedName2)
+  // console.log(selectedName3)
  // selectedPrice(0)
 };
 
@@ -122,93 +124,56 @@ let productDetails = productDetail;
 
 const handleAdd=()=>{
   console.log("currentStore",currentStore)
-  if(newItem.name && newItem.quantity!=0)
+  if(newItem.name && newItem.quantity)
+
   dispatch(generateBill.addItems({
     currentStore,
     newItem}),)
     // if(currentStore=="store1")
+    setNewItem({name:null,price:0,quantity:'0'})
     productDetails.productItems = productDetails.productItems.filter((item,index) => item.name != newItem.name)
 
-    setNewItem({name:null,price:null,quantity:'0'})
-    dispatch(generateBill.addItems({
-      currentStore,
-      }),)
+ 
+    
+    
+    // dispatch(generateBill.addItems({
+    //   currentStore,
+    //   }),)
 }
     
   
     return (
       <div className='entry'>
-        <Button id="store1" variant="outlined" onClick={handleClickOpen}> store 1 </Button>
-        <Button id="store2" variant="outlined" onClick={handleClickOpen}> store 2 </Button>
-        <Button id="store3" variant="outlined" onClick={handleClickOpen}> store 3 </Button>
+        <Button id="store1" variant="contained" sx={{backgroundColor : "violet"}} onClick={handleClickOpen}> store 1 </Button>
+        <Button id="store2" variant="contained" sx={{backgroundColor : "violet"}} onClick={handleClickOpen}> store 2 </Button>
+        <Button id="store3" variant="contained" sx={{backgroundColor : "violet"}} onClick={handleClickOpen}> store 3 </Button>
         <Dialog  open={open} onClose={handleClose}>
           <DialogTitle className="product-form">Generate Bill</DialogTitle>
           <DialogContent className="product-form">
-            <DialogContentText>
-                
-              </DialogContentText>
+            <DialogContentText></DialogContentText>
               <Autocomplete
               id="free-solo-demo"
               className='fields'
               freeSolo
-               // fullWidth
+              style={{ width: "302px",margin:"3px" }}
               name="name"
-              defaultValue='Select Product'
-              options={productDetails.productItems.map((option) => option.name)}
-              // getOptionLabel
-              getOptionDisabled={(option)=>{
-                if(currentStore==="store1"){
-                  for(let i=0;i>=selectedName1.length;i++){
-                    return selectedName1[i]==option
-                  }
-                }
-                if(currentStore==="store2"){
-                  for(let i=0;i>=selectedName2.length;i++){
-                    return selectedName2[i]==option
-                  }
-                }
-                if(currentStore==="store3"){
-                  for(let i=0;i>=selectedName3.length;i++){
-                    return selectedName3[i]==option
-                  }
-                }
-                  
-                  selectedName1.map((item)=> {
-                    console.log(option==item)  
-                   })
-                
-              // false
-                }
-              }
-              // multiple
-              filterSelectedOptions
-              renderInput={(params) => <TextField className='textfield' {...params} label="name" />}
+              // defaultValue='Select Product'
+            //  options={productDetails.productItems.map((option) => option.name)}
+             options={store1item.map((option) => option.name)}
+              renderInput={(params) => <TextField variant='filled' className='textfield' {...params} label="Name" onClick={(e)=>e.target.value=""} />}
               onChange={(event, value) => {handleName(value)}}
+              // onReset
             />
-           {/* {selectPrice(newItem.name)} */}
-           {/* <Autocomplete
-              id="free-solo-demo"
-              freeSolo
-              name="selectedPrice"
-              className='fields'
-              options={productDetails.productItems.map((option) => option.price )}//(option.name === newItem.name) ? setSelectedPrice(option.price): null
-              renderInput={(params) => <TextField {...params} label="price" />}
-              value={Number(selectedPrice)}
-              disabled
-            
-            /> */}
-           
-            
            <TextField
               autoFocus
               className='textfield'
               margin="dense"
               id="price"
               disabled
-              
               name="price"
-              label='price'
+              label='Price'
               type="number"
+             
               fullWidth
               // startAdornment={<InputAdornment position="start">Rs</InputAdornment>}
               onChange={(event,value)=>{setNewItem(prevState=>({...prevState,price: selectedPrice}))}}
@@ -216,26 +181,32 @@ const handleAdd=()=>{
                 variant="outlined"
             />
              <TextField
-
+               required
               margin="dense"
               id="quantiny"
               // contentEditable={true}
               className='fields'
-              name="quantiny"
+              name="quantity"
               type="number"
-              label="quantiny"
+              label="Quantity"
               fullWidth
               InputProps={{
                 inputProps: { min: 0 }
               }}
-              onChange={(event,value)=>{
-                console.log(event.target.value)
-                // {(value < 0)  ? (value = 0): value;}
+              onInput={(e)=>{Math.abs(e.target.value)}}
+              onClick={(e)=>e.target.value=""}
+              // onKeyUp={event.target.value.replace(/^[0]*/, "")}
+              onChange={(event,value)=>{  
+              
+                console.log(event.target.value);
+                // {let strNum=value.toString();
+                // console.log("adsf",strNum.replace(/^0+/, ''));}
+                // (value < 0)  ? alert("negative value"): value;
                 setNewItem(prevState=>({...prevState,quantity: event.target.value}))
                 // newItem.map(item=>{item.total+=item.price*item.quantity})
                 // console.log(newItem.total)
               }}
-              value={newItem.quantity}
+              value={(newItem.quantity)}
               variant="outlined"
             />
           </DialogContent>

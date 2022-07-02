@@ -1,11 +1,11 @@
 import {  createSlice } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 import productDetails from '../productDetails'
 
 const initialState={
-    store1Items:[productDetails.productItems],
-    store2Items:[productDetails.productItems],
-    store3Items:[productDetails.productItems],
+    store1Items:productDetails.productItems,
+    store2Items:productDetails.productItems,
+    store3Items:productDetails.productItems,
     store1Bill:[],
     store2Bill:[],
     store3Bill:[],
@@ -26,24 +26,28 @@ const productSlice = createSlice({
           
             // console.log(action.payload)
             // const type=action.payload.type   
-            console.log(newproduct) 
-        switch(newproduct.type){
+            
+        switch(newproduct.type){    
         case "store1":
-        // state.store1Items = [...state.store1Items,{id:action.payload.item.id,name:action.payload.item.name,price:action.payload.item.price}]
-        state.store1Bill=state.store1Bill.filter(item => item.id !== newproduct.name)
+        let p=newproduct.item.price
+        // console.log("price...",p)
+        state.store1Items = [...state.store1Items,{name:newproduct.item.name,price:p}]
+        console.log("store1items",newproduct.item)
+        // state.store1Items = [...state.store1Items,{price:newproduct.item.price}]
+        state.store1Bill=state.store1Bill.filter(item => item.id !== newproduct.item.name)
         state.store1Total=0
         state.store1Bill.map( item => state.store1Total+=item.amount)  
-        console.log(state.store1Total)
+        console.log(state.store1Items)
         break;
         case "store2":
-            // state.store2Items = [...state.store2Items,{id:action.payload.item.id,pname:action.payload.item.name,price:action.payload.item.price}]
+            // state.store2Items = [...state.store2Items,{id:action.payload.item.id,name:action.payload.item.name,price:action.payload.item.price}]
         state.store2Bill=state.store2Bill.filter(item => item.id !== newproduct.name)
         state.store2Total=0
         state.store2Bill.map( item => item.total+=item.amount)  
         console.log(state.store2Bill[0])
         break;
         case "store3":
-            // state.store3Items = [...state.store3Items,{id:action.payload.item.id,pname:action.payload.item.name,price:action.payload.item.price}]
+            // state.store3Items = [...state.store3Items,{id:action.payload.item.id,name:action.payload.item.name,price:action.payload.item.price}]
         state.store3Bill=state.store3Bill.filter(item => item.id !== newproduct.name)
         state.store3Total=0
         state.store3Bill.map( item => state.store3Total+=item.total)
@@ -58,7 +62,11 @@ const productSlice = createSlice({
             
            
             switch(newproduct.currentStore){
-            case "store1":state.store1Bill.push({
+            case "store1":
+                // let p=state.store1Items.filter(item=>item.name===newproduct.newItem.name)
+                // console.log(state.store1Items[0],"hh",p[0])
+                
+            state.store1Bill.push({
                                 id:newproduct.newItem.name,
                                 name:newproduct.newItem.name,
                                 price:newproduct.newItem.price,
@@ -66,9 +74,10 @@ const productSlice = createSlice({
                                 amount:newproduct.newItem.price*newproduct.newItem.quantity,
                                 total:newproduct.newItem.total
                                 })
-                                
+                                state.store1Items=state.store1Items.filter(item=>item.name !== newproduct.newItem.name)
+                                state.store1Total=0;
                                 state.store1Bill.map( item => state.store1Total+=item.amount)  
-                                console.log(state.store1Total)
+                                console.log(newproduct.newItem)
                                 break;
             case "store2":state.store2Bill.push({
                                 id:newproduct.newItem.name,
@@ -78,6 +87,7 @@ const productSlice = createSlice({
                                 amount:newproduct.newItem.price*newproduct.newItem.quantity,
                                 total:newproduct.newItem.total
                                 })
+                                state.store2Items=state.store2Items.filter(item=>item.name !== newproduct.newItem.name)
                                 state.store2Bill.map( item => state.store2Total+=item.amount) 
                                 break;
             case "store3":state.store3Bill.push({
@@ -88,6 +98,7 @@ const productSlice = createSlice({
                 amount:newproduct.newItem.price*newproduct.newItem.quantity,
                 total:newproduct.newItem.total
                                 })
+                                state.store3Items=state.store3Items.filter(item=>item.name !== newproduct.newItem.name)
                                 state.store3Bill.map( item => state.store3Total+=item.amount)    
                                 break;
             default:alert("Select the proper store")

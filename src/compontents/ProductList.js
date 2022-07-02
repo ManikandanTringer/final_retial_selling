@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import { generateBill } from '../store';
 import { styled } from '@mui/material/styles';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 
 
@@ -16,9 +17,9 @@ const ProductList = () => {
     const store1=useSelector((state)=>state.retail.store1Bill)
     const store2=useSelector((state)=>state.retail.store2Bill)
     const store3=useSelector((state)=>state.retail.store3Bill)
-    function handleDelete1(name){
-        console.log(name)
-        dispatch(generateBill.removeItems({name,type:"store1"}))
+    function handleDelete1(item){
+        console.log(item)
+        dispatch(generateBill.removeItems({item,type:"store1"}))
         // console.log("Displaying ID",store1.id)
     }
     function handleDelete2(name){
@@ -52,7 +53,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
   return (
-      
+      <>
     <div className='store'>
         <div className='store1'>
             <h2>Store 1</h2>
@@ -78,7 +79,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
                             <StyledTableCell align="right" >{item.price}</StyledTableCell>
                             <StyledTableCell align="right" >{item.quantity}</StyledTableCell>
                             <StyledTableCell align="right" >{item.amount}</StyledTableCell>
-                            <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }} onClick={()=>handleDelete1(item.name)}/></StyledTableCell>
+                            <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }} onClick={()=>handleDelete1(item)}/></StyledTableCell>
+                            <StyledTableCell align="right" ><ModeEditOutlineIcon /></StyledTableCell>
                         </StyledTableRow> 
                         {/* <span className='totalamount'></span> */
                         
@@ -115,7 +117,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
                             <StyledTableCell align="right" >{item.price}</StyledTableCell>
                             <StyledTableCell align="right" >{item.quantity}</StyledTableCell>
                             <StyledTableCell align="right" >{item.amount}</StyledTableCell>
-                            <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }}  onClick={()=>handleDelete2(item.name)}/></StyledTableCell>
+                            <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }}  onClick={()=>handleDelete2(item)}/></StyledTableCell>
+                            <StyledTableCell align="right" ><ModeEditOutlineIcon /></StyledTableCell>
                         </StyledTableRow> 
                        
                         </>
@@ -155,7 +158,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
                             <StyledTableCell align="right" >{item.price}</StyledTableCell>
                             <StyledTableCell align="right" >{item.quantity}</StyledTableCell>
                             <StyledTableCell align="right" >{item.amount}</StyledTableCell>
-                            <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }}  onClick={()=>handleDelete3(item.name)}/></StyledTableCell>
+                            <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }}  onClick={()=>handleDelete3(item)}/></StyledTableCell>
+                            <StyledTableCell align="right" ><ModeEditOutlineIcon /></StyledTableCell>
                         </StyledTableRow> 
                       
                         </>
@@ -169,7 +173,31 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
         <Typography  align="center" >Total : {useSelector((state)=>state.retail.store3Total)}</Typography> 
        </TableContainer>
         </div>
+        
     </div>
+    {/* <Table>
+    <TableHead>
+            <TableRow>
+            <TableCell rowSpan={3} />
+            <TableCell colSpan={2} align="center" >Quantity</TableCell>
+            <TableCell  align="center" >Amount</TableCell>
+            <TableCell align="center" >Delete</TableCell>
+            </TableRow>
+            </TableHead>
+    <TableBody>
+<TableRow>
+    <TableCell rowSpan={3} />
+    <TableCell colSpan={2}>Subtotal</TableCell>
+    <TableCell align="center">ss</TableCell>
+   <TableCell>Tax</TableCell>
+    <TableCell align="center">ss</TableCell>
+    <TableCell align="center">d</TableCell>
+    <TableCell colSpan={2}>Total</TableCell>
+    <TableCell align="center">sdff</TableCell>
+  </TableRow>
+</TableBody>
+</Table> */}
+</>
   )
 }
 
