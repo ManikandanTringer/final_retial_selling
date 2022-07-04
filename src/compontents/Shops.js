@@ -78,7 +78,8 @@ let productDetails = productDetail;
     // const { name, value } = e.target;
     setNewItem(prevState => ({
         ...prevState, 
-        name: value
+        name: value,
+        quantity:null
     }));
 
     let getprice=store1item.filter((data)=>(data.name == value))
@@ -123,15 +124,15 @@ let productDetails = productDetail;
 // }
 
 const handleAdd=()=>{
-  console.log("currentStore",currentStore)
-  if(newItem.name && newItem.quantity)
-
-  dispatch(generateBill.addItems({
+  console.log("current value",newItem.name , newItem.quantity)
+  if(newItem.name && newItem.quantity){
+        dispatch(generateBill.addItems({
     currentStore,
     newItem}),)
     // if(currentStore=="store1")
-    setNewItem({name:null,price:0,quantity:'0'})
-    productDetails.productItems = productDetails.productItems.filter((item,index) => item.name != newItem.name)
+    setNewItem({name:'',price:0,quantity:0})
+  }
+    // productDetails.productItems = productDetails.productItems.filter((item,index) => item.name != newItem.name)
 
  
     
@@ -147,6 +148,7 @@ const handleAdd=()=>{
         <Button id="store1" variant="contained" sx={{backgroundColor : "violet"}} onClick={handleClickOpen}> store 1 </Button>
         <Button id="store2" variant="contained" sx={{backgroundColor : "violet"}} onClick={handleClickOpen}> store 2 </Button>
         <Button id="store3" variant="contained" sx={{backgroundColor : "violet"}} onClick={handleClickOpen}> store 3 </Button>
+      
         <Dialog  open={open} onClose={handleClose}>
           <DialogTitle className="product-form">Generate Bill</DialogTitle>
           <DialogContent className="product-form">
@@ -157,11 +159,10 @@ const handleAdd=()=>{
               freeSolo
               style={{ width: "302px",margin:"3px" }}
               name="name"
-              // defaultValue='Select Product'
-            //  options={productDetails.productItems.map((option) => option.name)}
-             options={store1item.map((option) => option.name)}
+              options={currentStore==="store1" ? store1item.map((option) => option.name) : currentStore==="store2" ? store2item.map((option) => option.name) : currentStore==="store3" ? store3item.map((option) => option.name): store1item }
               renderInput={(params) => <TextField variant='filled' className='textfield' {...params} label="Name" onClick={(e)=>e.target.value=""} />}
               onChange={(event, value) => {handleName(value)}}
+              
               // onReset
             />
            <TextField
@@ -190,11 +191,11 @@ const handleAdd=()=>{
               type="number"
               label="Quantity"
               fullWidth
-              InputProps={{
-                inputProps: { min: 0 }
-              }}
-              onInput={(e)=>{Math.abs(e.target.value)}}
-              onClick={(e)=>e.target.value=""}
+              // InputProps={{
+              //   inputProps: { min: 0 }
+              // }}
+              onInput={(e)=>{e.target.value=  Math.abs(e.target.value);}}
+              onClick={(e)=>e.target.value=""} 
               // onKeyUp={event.target.value.replace(/^[0]*/, "")}
               onChange={(event,value)=>{  
               
@@ -202,11 +203,12 @@ const handleAdd=()=>{
                 // {let strNum=value.toString();
                 // console.log("adsf",strNum.replace(/^0+/, ''));}
                 // (value < 0)  ? alert("negative value"): value;
+                // if(value>0)
                 setNewItem(prevState=>({...prevState,quantity: event.target.value}))
                 // newItem.map(item=>{item.total+=item.price*item.quantity})
                 // console.log(newItem.total)
               }}
-              value={(newItem.quantity)}
+              value={newItem.quantity}
               variant="outlined"
             />
           </DialogContent>

@@ -40,15 +40,15 @@ const productSlice = createSlice({
         console.log(state.store1Items)
         break;
         case "store2":
-            // state.store2Items = [...state.store2Items,{id:action.payload.item.id,name:action.payload.item.name,price:action.payload.item.price}]
-        state.store2Bill=state.store2Bill.filter(item => item.id !== newproduct.name)
+            state.store2Items = [...state.store2Items,{name:newproduct.item.name,price:newproduct.item.price}]
+        state.store2Bill=state.store2Bill.filter(item => item.id !== newproduct.item.name)
         state.store2Total=0
-        state.store2Bill.map( item => item.total+=item.amount)  
-        console.log(state.store2Bill[0])
+        state.store2Bill.map( item => state.store2Total+=item.amount)  
+        // console.log(state.store2Bill[0])
         break;
         case "store3":
-            // state.store3Items = [...state.store3Items,{id:action.payload.item.id,name:action.payload.item.name,price:action.payload.item.price}]
-        state.store3Bill=state.store3Bill.filter(item => item.id !== newproduct.name)
+            state.store3Items = [...state.store3Items,{name:newproduct.item.name,price:newproduct.item.price}]
+        state.store3Bill=state.store3Bill.filter(item => item.id !== newproduct.item.name)
         state.store3Total=0
         state.store3Bill.map( item => state.store3Total+=item.total)
         break;
@@ -63,9 +63,8 @@ const productSlice = createSlice({
            
             switch(newproduct.currentStore){
             case "store1":
-                // let p=state.store1Items.filter(item=>item.name===newproduct.newItem.name)
-                // console.log(state.store1Items[0],"hh",p[0])
                 
+             if(newproduct.newItem.quantity>0)   
             state.store1Bill.push({
                                 id:newproduct.newItem.name,
                                 name:newproduct.newItem.name,
@@ -108,7 +107,7 @@ const productSlice = createSlice({
          updateCurrentStore(state,action){
 
                 state.currentStore=action.payload.currentstore;
-                // console.log(action.payload.currentStore)
+               
          },
     }
      

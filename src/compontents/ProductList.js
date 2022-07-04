@@ -1,11 +1,11 @@
 import { Table, TableBody, TableCell, tableCellClasses, TableRow,TableHead, TableContainer, Paper, Typography } from '@mui/material'
 import React from 'react'
-import "../App.css"
+// import "../App.css"
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import { generateBill } from '../store';
 import { styled } from '@mui/material/styles';
-import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import StoreDetails from './StoreDetails';
 
 
 
@@ -17,19 +17,22 @@ const ProductList = () => {
     const store1=useSelector((state)=>state.retail.store1Bill)
     const store2=useSelector((state)=>state.retail.store2Bill)
     const store3=useSelector((state)=>state.retail.store3Bill)
+    const store1total=useSelector((state)=>state.retail.store1Total)
+    const store2total=useSelector((state)=>state.retail.store2Total)
+    const store3total=useSelector((state)=>state.retail.store3Total)
     function handleDelete1(item){
-        console.log(item)
+        // console.log(item)
         dispatch(generateBill.removeItems({item,type:"store1"}))
         // console.log("Displaying ID",store1.id)
     }
-    function handleDelete2(name){
-        console.log(name)
-    dispatch(generateBill.removeItems({name,type:"store2"}))
+    function handleDelete2(item){
+        // console.log(name)
+    dispatch(generateBill.removeItems({item,type:"store2"}))
     // console.log("Displaying ID",store1.id)
 }
-function handleDelete3(name){
-    console.log(name)
-dispatch(generateBill.removeItems({name,type:"store3"}))
+function handleDelete3(item){
+    // console.log(name)
+dispatch(generateBill.removeItems({item,type:"store3"}))
 // console.log("Displaying ID",store1.id)
 }
 
@@ -80,7 +83,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
                             <StyledTableCell align="right" >{item.quantity}</StyledTableCell>
                             <StyledTableCell align="right" >{item.amount}</StyledTableCell>
                             <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }} onClick={()=>handleDelete1(item)}/></StyledTableCell>
-                            <StyledTableCell align="right" ><ModeEditOutlineIcon /></StyledTableCell>
+                          
                         </StyledTableRow> 
                         {/* <span className='totalamount'></span> */
                         
@@ -118,7 +121,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
                             <StyledTableCell align="right" >{item.quantity}</StyledTableCell>
                             <StyledTableCell align="right" >{item.amount}</StyledTableCell>
                             <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }}  onClick={()=>handleDelete2(item)}/></StyledTableCell>
-                            <StyledTableCell align="right" ><ModeEditOutlineIcon /></StyledTableCell>
                         </StyledTableRow> 
                        
                         </>
@@ -159,7 +161,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
                             <StyledTableCell align="right" >{item.quantity}</StyledTableCell>
                             <StyledTableCell align="right" >{item.amount}</StyledTableCell>
                             <StyledTableCell align="right" ><DeleteForeverRoundedIcon style={{ color: "red" }}  onClick={()=>handleDelete3(item)}/></StyledTableCell>
-                            <StyledTableCell align="right" ><ModeEditOutlineIcon /></StyledTableCell>
                         </StyledTableRow> 
                       
                         </>
@@ -175,28 +176,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
         </div>
         
     </div>
-    {/* <Table>
-    <TableHead>
-            <TableRow>
-            <TableCell rowSpan={3} />
-            <TableCell colSpan={2} align="center" >Quantity</TableCell>
-            <TableCell  align="center" >Amount</TableCell>
-            <TableCell align="center" >Delete</TableCell>
-            </TableRow>
-            </TableHead>
-    <TableBody>
-<TableRow>
-    <TableCell rowSpan={3} />
-    <TableCell colSpan={2}>Subtotal</TableCell>
-    <TableCell align="center">ss</TableCell>
-   <TableCell>Tax</TableCell>
-    <TableCell align="center">ss</TableCell>
-    <TableCell align="center">d</TableCell>
-    <TableCell colSpan={2}>Total</TableCell>
-    <TableCell align="center">sdff</TableCell>
-  </TableRow>
-</TableBody>
-</Table> */}
+    {/* {store1.length>0 || store2.length>0 || store3.length>0 ? <StoreDetails /> : null} */}
+    { store1.length>0 || store2.length>0 || store3.length>0 ? <span><h3>Total of all Store: {store1total+store2total+store3total}</h3></span>:''}
 </>
   )
 }

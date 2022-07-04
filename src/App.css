@@ -18,6 +18,13 @@ background: -webkit-linear-gradient(top left, rgba(152, 120, 249, 1.0), rgba(173
 background: -moz-linear-gradient(top left, rgba(152, 120, 249, 1.0), rgba(173, 232, 255, 1.0));
 background: linear-gradient(to bottom right, rgba(152, 120, 249, 1.0), rgba(173, 232, 255, 1.0));
   height: 100vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-x: hidden;
+}
+.App::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
 }
 .dialog-action{
   /* margin: 10px; */
@@ -71,3 +78,21 @@ background: linear-gradient(to bottom right, rgba(152, 120, 249, 1.0), rgba(173,
     color: white;
   padding: 10px;
 }
+/* store details compontent style */
+  .store-data{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: 300px;
+    width:100%;
+  }
+  /* style={{ height: "300px",  width:"350px"}} */
+  .MuiDataGrid-root.MuiDataGrid-root--densityStandard.css-r11z79-MuiDataGrid-root{
+    display: flex;
+    flex:30%;
+    margin: 20px;
+    margin-left: 500px; 
+    margin-right: 500px; 
+    width: 70vh;
+  }
